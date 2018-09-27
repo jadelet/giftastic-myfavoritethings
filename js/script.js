@@ -66,7 +66,6 @@ function callGiphy() {
           thingDiv.append(thingImg);
 
           $("#gifs-appear-here").prepend(thingDiv);
-          showFavorites();
         }
       }
     });
