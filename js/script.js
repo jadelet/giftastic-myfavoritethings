@@ -1,5 +1,5 @@
-var topics = ["motorcycles", "tim burton", "camping", "hiking", "fishing", "Chuck Bartowski", "Office Space", "Lord of the Rings", "pianos"];
-
+var topics = ["Chuck Bartowski", "Sarah Walker", "John Casey", "Morgan Grimes", "Bryce Larkin", "Lester Patel", ];
+var state = $(this).attr("data-state");
 function showFavorites() {
   $("#favorites-view").empty();
 
@@ -14,6 +14,10 @@ function showFavorites() {
     a.text(topics[i]);
 
     $("#favorites-view").append(a);
+
+    
+
+
   }
 }
 
@@ -58,15 +62,36 @@ function callGiphy() {
 
           var p = $("<p>").text("Rating: " + rating);
 
-          var thingImg = $("<img>");
+          console.log(results[i]);
 
-          thingImg.attr("src", results[i].images.fixed_height.url);
+          var thingImg = $("<img>");    
+          thingImg.attr("src", results[i].images.fixed_height_still.url);
+          thingImg.attr("data-still", results[i].images.fixed_height_still.url);
+          thingImg.attr("data-animate", results[i].images.fixed_height.url);
+          thingImg.attr("data-state", "still");
+          thingImg.addClass("gif");
+        
 
           thingDiv.append(p);
           thingDiv.append(thingImg);
 
           $("#gifs-appear-here").prepend(thingDiv);
+        
+
+          $(".gif").on("click", function() {
+            var state = $(this).attr("data-state");
+            
+            if (state === "still") {
+              $(this).attr("src", $(this).attr("data-animate"));
+              $(this).attr("data-state", "animate");
+            } else {
+              $(this).attr("src", $(this).attr("data-still"));
+              $(this).attr("data-state", "still");
+            }
+          })
         }
-      }
+      }  
+      
     });
 }
+ 
